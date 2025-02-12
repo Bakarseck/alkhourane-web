@@ -1,9 +1,12 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <Image src="/12.jpg" alt="Kaaba" fill className="object-cover opacity-10" priority />
+      </div>
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Bienvenue sur notre site islamique</h1>
         <p className="text-xl text-gray-600">Découvrez le Saint Coran et les 99 noms d'Allah</p>

@@ -11,7 +11,7 @@ export interface Surah {
     arabicName: string;
     versesCount: number;
     bismillah: string;
-    verses: Verse[];
+    verses: Verse[]; 
 }
 
 export async function getSurah(id: number): Promise<Surah | null> {

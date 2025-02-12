@@ -4,7 +4,7 @@
 
 🌟 **Alkhourane Web** is an interactive platform for reading and listening to the Holy Quran, featuring multiple translations and audio options.
 
-🔗 **Live Website:** [Alkhourane Web](https://alkhourane-web.vercel.app/quran)
+🔗 **Live Website:** [Alkhourane Web](https://alkhourane.vercel.app/quran)
 
 ---
 

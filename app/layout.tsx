@@ -8,8 +8,11 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Site Islamique",
+  title: "Alkhourane",
   description: "Lecture du Coran et des 99 noms d'Allah",
+  icons: {
+    icon: "/logo_en.jpg",
+  },
 }
 
 export default function RootLayout({
