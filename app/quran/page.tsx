@@ -99,7 +99,7 @@ export default function QuranPage() {
               <Card className="hover:shadow-lg transition-shadow cursor-pointer">
                 <CardContent className="p-6">
                   <div className="text-center">
-                    <span className="text-sm text-gray-500">Sourate #{surah.numero}</span>
+                    <span className="text-sm text-gray-500">Sourate {surah.numero}</span>
                     <h2 className="text-2xl font-bold text-gray-900 mb-2">{surah.arabicText}</h2>
                     <p className="text-lg font-medium text-green-600 mb-1">{surah.transcription}</p>
                     <p className="text-gray-600">{surah.translation}</p>
