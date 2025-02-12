@@ -53,8 +53,8 @@ export function PrayerTimes({ data }: PrayerTimesProps) {
 
   const prayerTimes: PrayerTime[] = validData
     ? [
-        { name: "Fajr", time: data.fajr || "", timestamp: timeToTimestamp(data.fajr) },
-        { name: "Soubh", time: data.soubh || "", timestamp: timeToTimestamp(data.soubh) },
+        { name: "Fajr", time: data.soubh || "", timestamp: timeToTimestamp(data.fajr) },
+        { name: "Soubh", time: data.fajr  || "", timestamp: timeToTimestamp(data.soubh) },
         { name: "Dhuhr", time: data.dhuhr || "", timestamp: timeToTimestamp(data.dhuhr) },
         { name: "Asr", time: data.asr || "", timestamp: timeToTimestamp(data.asr) },
         { name: "Maghrib", time: data.maghrib || "", timestamp: timeToTimestamp(data.maghrib) },
