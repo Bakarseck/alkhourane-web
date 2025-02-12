@@ -8,8 +8,8 @@ import Image from "next/image";
 export default function PrayerTimesPage() {
   const [prayerTimes, setPrayerTimes] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+  const [error, setError] = useState(null);
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -35,45 +35,35 @@ export default function PrayerTimesPage() {
   useEffect(() => {
     async function fetchPrayerTimes() {
       try {
-          const response = await fetch(`https://api.aladhan.com/v1/timings/${Math.floor(Date.now() / 1000)}?latitude=${location.latitude}&longitude=${location.longitude}&method=2`, {
-            method: "GET",
-            mode: "cors",
-            cache: "no-cache",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+        if (!location) return;
 
-          console.log("📡 Réponse API reçue - Statut:", response.status);
+        const response = await fetch(`https://api.aladhan.com/v1/timings/${Math.floor(Date.now() / 1000)}?latitude=${location.latitude}&longitude=${location.longitude}&method=2`);
 
-          if (!response.ok) {
-            throw new Error(`Erreur API - Code: ${response.status}`);
-          }
+        console.log("📡 Réponse API reçue - Statut:", response.status);
 
-          const data = await response.json();
-          console.log("✅ Données de l'API reçues :", data);
+        if (!response.ok) {
+          throw new Error(`Erreur API - Code: ${response.status}`);
+        }
 
-          if (!data || !data.data || !data.data.timings) {
-            throw new Error("Les données reçues sont vides ou invalides.");
-          }
+        const data = await response.json();
+        console.log("✅ Données de l'API reçues :", data);
 
-          setPrayerTimes(data.data.timings);
-        } catch (error) {
-          console.error("❌ Erreur lors du chargement des horaires :", error);
-          if (error instanceof Error) {
-            setError(error.message);
-          } else {
-            setError("An unknown error occurred");
-          }
+        if (!data || !data.data || !data.data.timings) {
+          throw new Error("Les données reçues sont vides ou invalides.");
+        }
+
+        setPrayerTimes(data.data.timings);
+      } catch (error) {
+        console.error("❌ Erreur lors du chargement des horaires :", error);
+        setError(error.message || "An unknown error occurred");
       } finally {
         setLoading(false);
       }
     }
 
-    if (location) {
-      fetchPrayerTimes();
-    }
+    fetchPrayerTimes();
   }, [location]);
+
   return (
     <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="fixed inset-0 z-0 pointer-events-none">
