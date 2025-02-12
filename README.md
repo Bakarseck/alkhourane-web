@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📖 Alkhourane Web
 
-## Getting Started
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-blue)](https://alkhourane-web.vercel.app/quran)
 
-First, run the development server:
+🌟 **Alkhourane Web** is an interactive platform for reading and listening to the Holy Quran, featuring multiple translations and audio options.
 
+🔗 **Live Website:** [Alkhourane Web](https://alkhourane-web.vercel.app/quran)
+
+---
+
+## 🚀 Features
+
+- 📜 **View Surahs** with names in Arabic and Latin.
+- 🔍 **Quick search and navigation** between Surahs.
+- 🔊 **Audio playback** for Surahs with multiple translation options.
+- 🌙 **Clean and responsive UI**, optimized for all devices.
+- 🎨 **Customizable display modes** (Arabic, Translation, or both).
+
+---
+
+## 🛠️ Installation and Setup
+
+### 1️⃣ **Clone the project**
+```bash
+git clone https://github.com/your-username/alkhourane-web.git
+cd alkhourane-web
+```
+
+### 2️⃣ **Install dependencies**
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3️⃣ **Run in development mode**
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+> 🖥️ The application will be accessible at `http://localhost:3000`.
+
+---
+
+## 🌍 Deployment with Vercel
+
+The project is deployed on **Vercel** and automatically updates with **GitHub**.
+
+### ⚡ **Manual Deployment**
+If you want to force a deployment, use:
+```bash
+vercel --prod
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📂 API Used
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+We use the **Alkhourane API** to fetch Surahs and translations:
+🔗 **[https://www.alkhourane.org/api/sourate/list](https://www.alkhourane.org/api/sourate/list)**
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🤝 Contributing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Want to contribute to the project? Follow these steps:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Fork** the repository.
+2. **Create a new branch** (`git checkout -b feature/my-feature`).
+3. **Make your changes** and commit (`git commit -m "Added a new feature"`).
+4. **Push your changes** (`git push origin feature/my-feature`).
+5. **Create a pull request**, and we’ll review it together!
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📜 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the **MIT License**. Feel free to use and modify it.
+
+💡 **Developed with ❤️ by [Your Name or Username]** 🕌✨
