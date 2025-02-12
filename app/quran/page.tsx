@@ -46,6 +46,7 @@ export default function QuranPage() {
           // Récupérer la traduction en français si disponible, sinon utiliser l'anglais
           const frenchTranslation = item.translations.find((t: any) => t.langCode === "fr");
           const englishTranslation = item.translations.find((t: any) => t.langCode === "en");
+          const wolofTranslation = item.translations.find((t: any) => t.langCode === "wo");
 
           return {
             id: item.id,
@@ -54,7 +55,7 @@ export default function QuranPage() {
             transcription: item.transcription,
             arabicText: item.arabicText,
             translation: frenchTranslation?.translation || englishTranslation?.translation || "Sans titre",
-            audioUrl: frenchTranslation?.audioUrl || englishTranslation?.audioUrl || null,
+            audioUrl: wolofTranslation?.audioUrl || englishTranslation?.audioUrl || null,
           };
         });
 
