@@ -8,8 +8,7 @@ export default function Home() {
         <Image src="/12.jpg" alt="Kaaba" fill className="object-cover opacity-10" priority />
       </div>
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Bienvenue sur notre site islamique</h1>
-        <p className="text-xl text-gray-600">Découvrez le Saint Coran et les 99 noms d'Allah</p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Découvrez le Saint Coran et les 99 noms d'Allah</h1>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
