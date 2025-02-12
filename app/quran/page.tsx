@@ -11,8 +11,8 @@ interface Surah {
   countVerset: number;
   transcription: string;
   arabicText: string;
-  translation?: string; // Nom traduit en français ou autre langue
-  audioUrl?: string; // Lien de l'audio en français ou autre langue
+  translation?: string;
+  audioUrl?: string;
 }
 
 export default function QuranPage() {
