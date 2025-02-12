@@ -23,7 +23,7 @@ export function Navigation() {
                 height={40}
                 className="w-auto h-8"
               />
-              <span className="ml-2 text-xl font-semibold text-green-700">Islam</span>
+              <span className="ml-2 text-xl font-semibold text-green-700">Alkhurane App</span>
             </Link>
 
             {/* Liens (Desktop) */}
