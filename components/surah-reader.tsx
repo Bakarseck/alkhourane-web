@@ -27,6 +27,7 @@ interface SurahReaderProps {
 }
 
 export function SurahReader({ surah }: SurahReaderProps) {
+
   const [displayMode, setDisplayMode] = useState<"arabic" | "translation" | "both">("both")
   const [viewMode, setViewMode] = useState<"compact" | "detailed">("detailed")
   const [currentVerse, setCurrentVerse] = useState(0)
@@ -43,6 +44,16 @@ export function SurahReader({ surah }: SurahReaderProps) {
       setIsPlaying(!isPlaying)
     }
   }
+
+  // Fonction pour convertir les nombres en chiffres arabes
+  const convertToArabicNumerals = (num: number) => {
+    const arabicNumbers = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+    return num
+      .toString()
+      .split("")
+      .map((digit) => arabicNumbers[parseInt(digit, 10)])
+      .join("");
+  };
 
   const playNextVerse = () => {
     if (currentVerse < surah.verses.length - 1) {
@@ -90,7 +101,7 @@ export function SurahReader({ surah }: SurahReaderProps) {
                 {surah.verses.map((verse, index) => (
                   <span key={verse.number}>
                     {verse.arabic}
-                    <span className="inline-block mr-2 ml-2 text-sm text-gray-400">﴿{verse.number}﴾</span>
+                    <span className="inline-block mr-2 ml-2 text-sm text-gray-400">﴾{convertToArabicNumerals(verse.number)}﴿</span>
                   </span>
                 ))}
               </p>
