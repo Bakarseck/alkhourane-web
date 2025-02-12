@@ -51,10 +51,16 @@ export default function PrayerTimesPage() {
           throw new Error("Les données reçues sont vides ou invalides.");
         }
 
-        setPrayerTimes(data.data.timings);
+        setPrayerTimes({
+          Fajr: data.data.timings.Fajr,
+          Dhuhr: data.data.timings.Dhuhr,
+          Asr: data.data.timings.Asr,
+          Maghrib: data.data.timings.Maghrib,
+          Isha: data.data.timings.Isha,
+        });
       } catch (error) {
         console.error("❌ Erreur lors du chargement des horaires :", error);
-        setError(error.message || "An unknown error occurred");
+        setError(error.message || "Une erreur inconnue est survenue");
       } finally {
         setLoading(false);
       }
