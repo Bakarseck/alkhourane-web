@@ -22,8 +22,8 @@ interface PrayerTimesProps {
 }
 
 function timeToTimestamp(timeStr: string | undefined): number {
-  if (!timeStr) return 0
-
+  if (!timeStr) return 0;
+  
   try {
     const [hours, minutes] = timeStr.split(":").map(Number)
     if (isNaN(hours) || isNaN(minutes)) return 0
