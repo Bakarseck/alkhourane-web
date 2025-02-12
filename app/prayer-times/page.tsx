@@ -13,7 +13,7 @@ export default function PrayerTimesPage() {
   useEffect(() => {
     async function fetchPrayerTimes() {
       try {
-        const response = await fetch("https://islam-excellent.vercel.app/api/prayer-times", {
+        const response = await fetch("https://api.aladhan.com/v1/timingsByCity?city=Dakar&country=Senegal&method=2", {
           method: "GET",
           mode: "cors",
           cache: "no-cache",
@@ -31,12 +31,11 @@ export default function PrayerTimesPage() {
         const data = await response.json();
         console.log("✅ Données de l'API reçues :", data);
 
-        // Vérifie si l'API renvoie bien les horaires de prière
-        if (!data || Object.keys(data).length === 0) {
+        if (!data || !data.data || !data.data.timings) {
           throw new Error("Les données reçues sont vides ou invalides.");
         }
 
-        setPrayerTimes(data);
+        setPrayerTimes(data.data.timings);
       } catch (error) {
         console.error("❌ Erreur lors du chargement des horaires :", error);
         if (error instanceof Error) {
@@ -54,13 +53,9 @@ export default function PrayerTimesPage() {
 
   return (
     <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-      {/* Background Image */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <Image src="/12.jpg" alt="Kaaba" fill className="object-cover opacity-10" priority />
       </div>
-
-      {/* Contenu principal */}
       <div className="text-center mb-12">
         <div className="flex justify-center mb-6">
           <Image
@@ -74,8 +69,6 @@ export default function PrayerTimesPage() {
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Horaires des Prières</h1>
         <p className="text-xl text-gray-600">Les horaires de prière pour aujourd'hui</p>
       </div>
-
-      {/* Affichage du chargement */}
       {loading ? (
         <Card>
           <CardHeader>
