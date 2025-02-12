@@ -2,7 +2,8 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { Navigation } from "@/components/navigation"
-import type React from "react" // Added import for React
+import type React from "react"
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,7 +21,10 @@ export default function RootLayout({
     <html lang="fr">
       <body className={inter.className}>
         <Navigation />
-        <main className="relative z-10 bg-[#f8f9fa] min-h-screen pt-16">{children}</main>
+        <main className="relative z-10 bg-[#f8f9fa] min-h-screen pt-16">
+          {children}
+          <Analytics />
+        </main>
       </body>
     </html>
   )
