@@ -1,81 +1,55 @@
-"use client"
+"use client";
+import { useEffect, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Clock } from "lucide-react";
 
-import { useEffect, useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Clock } from "lucide-react"
-
-interface PrayerTime {
-  name: string
-  time: string
-  timestamp: number
-}
-
-interface PrayerTimesProps {
-  data: {
-    fajr: string
-    soubh: string
-    dhuhr: string
-    asr: string
-    maghrib: string
-    isha: string
-  }
-}
-
-function timeToTimestamp(timeStr: string | undefined): number {
+function timeToTimestamp(timeStr) {
   if (!timeStr) return 0;
-  
-  try {
-    const [hours, minutes] = timeStr.split(":").map(Number)
-    if (isNaN(hours) || isNaN(minutes)) return 0
 
-    const now = new Date()
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes).getTime()
+  try {
+    const [hours, minutes] = timeStr.split(":").map(Number);
+    if (isNaN(hours) || isNaN(minutes)) return 0;
+
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes).getTime();
   } catch (error) {
-    console.error("Error converting time to timestamp:", error)
-    return 0
+    console.error("Error converting time to timestamp:", error);
+    return 0;
   }
 }
 
-function formatTimeRemaining(msLeft: number): string {
-  if (msLeft <= 0) return "0:00"
-  const hours = Math.floor(msLeft / 3600000)
-  const minutes = Math.floor((msLeft % 3600000) / 60000)
-  return hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`
+function formatTimeRemaining(msLeft) {
+  if (msLeft <= 0) return "0:00";
+  const hours = Math.floor(msLeft / 3600000);
+  const minutes = Math.floor((msLeft % 3600000) / 60000);
+  return hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`;
 }
 
-export function PrayerTimes({ data }: PrayerTimesProps) {
-  const [currentTime, setCurrentTime] = useState<Date>(new Date())
-  const [nextPrayer, setNextPrayer] = useState<PrayerTime | null>(null)
-  const [timeRemaining, setTimeRemaining] = useState<string>("")
+export function PrayerTimes({ data }) {
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [nextPrayer, setNextPrayer] = useState(null);
+  const [timeRemaining, setTimeRemaining] = useState("");
 
-  // Validate data before creating prayer times
-  const validData = data && typeof data === "object"
-
-  const prayerTimes: PrayerTime[] = validData
-    ? [
-        { name: "Fajr", time: data.soubh || "", timestamp: timeToTimestamp(data.fajr) },
-        { name: "Soubh", time: data.fajr  || "", timestamp: timeToTimestamp(data.soubh) },
-        { name: "Dhuhr", time: data.dhuhr || "", timestamp: timeToTimestamp(data.dhuhr) },
-        { name: "Asr", time: data.asr || "", timestamp: timeToTimestamp(data.asr) },
-        { name: "Maghrib", time: data.maghrib || "", timestamp: timeToTimestamp(data.maghrib) },
-        { name: "Isha", time: data.isha || "", timestamp: timeToTimestamp(data.isha) },
-      ]
-    : []
+  const prayerTimes = [
+    { name: "Fajr", time: data.Fajr, timestamp: timeToTimestamp(data.Fajr) },
+    { name: "Dhuhr", time: data.Dhuhr, timestamp: timeToTimestamp(data.Dhuhr) },
+    { name: "Asr", time: data.Asr, timestamp: timeToTimestamp(data.Asr) },
+    { name: "Maghrib", time: data.Maghrib, timestamp: timeToTimestamp(data.Maghrib) },
+    { name: "Isha", time: data.Isha, timestamp: timeToTimestamp(data.Isha) },
+  ];
 
   useEffect(() => {
-    if (prayerTimes.length === 0) return
-
     const updateTime = () => {
-      const now = new Date()
-      setCurrentTime(now)
+      const now = new Date();
+      setCurrentTime(now);
 
-      const currentTimestamp = now.getTime()
-      let nextPrayerTime: PrayerTime | null = null
+      const currentTimestamp = now.getTime();
+      let nextPrayerTime = null;
 
       for (const prayer of prayerTimes) {
         if (prayer.timestamp > currentTimestamp) {
-          nextPrayerTime = prayer
-          break
+          nextPrayerTime = prayer;
+          break;
         }
       }
 
@@ -83,34 +57,23 @@ export function PrayerTimes({ data }: PrayerTimesProps) {
         nextPrayerTime = {
           ...prayerTimes[0],
           timestamp: timeToTimestamp(prayerTimes[0].time) + 86400000,
-        }
+        };
       }
 
       if (nextPrayerTime) {
-        setNextPrayer(nextPrayerTime)
-        const timeLeft = nextPrayerTime.timestamp - currentTimestamp
-        setTimeRemaining(formatTimeRemaining(timeLeft))
+        setNextPrayer(nextPrayerTime);
+        const timeLeft = nextPrayerTime.timestamp - currentTimestamp;
+        setTimeRemaining(formatTimeRemaining(timeLeft));
       }
-    }
+    };
 
-    updateTime()
-    const interval = setInterval(updateTime, 1000)
-    return () => clearInterval(interval)
-  }, [])
-
-  if (!validData || prayerTimes.length === 0) {
-    return (
-      <Card>
-        <CardContent className="p-6">
-          <p className="text-center text-red-600">Impossible de charger les horaires de prière</p>
-        </CardContent>
-      </Card>
-    )
-  }
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, [prayerTimes]);
 
   return (
     <div className="space-y-6">
-      {/* Carte de la prochaine prière */}
       <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white shadow-xl transform hover:scale-[1.02] transition-all duration-200">
         <CardContent className="p-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -136,7 +99,6 @@ export function PrayerTimes({ data }: PrayerTimesProps) {
         </CardContent>
       </Card>
 
-      {/* Grille des horaires */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {prayerTimes.map((prayer) => (
           <Card
@@ -166,6 +128,5 @@ export function PrayerTimes({ data }: PrayerTimesProps) {
         ))}
       </div>
     </div>
-  )
+  );
 }
-
