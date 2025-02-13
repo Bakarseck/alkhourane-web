@@ -66,7 +66,6 @@ export function PrayerTimes({ data }) {
         setTimeRemaining(formatTimeRemaining(timeLeft));
       }
     };
-
     updateTime();
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
