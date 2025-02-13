@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="fr">
       <body className={inter.className}>
         <Navigation />
-        <main className="relative z-10 bg-[#f8f9fa] min-h-screen pt-16">
+        <main className="relative z-10 bg-[#f8f9fa] min-h-screen pt-16  w-full">
           {children}
           <Analytics />
         </main>

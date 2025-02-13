@@ -26,6 +26,14 @@ interface SurahReaderProps {
   surah: Surah
 }
 
+const fontOptions = [
+  { name: "Amiri", className: "font-[Amiri]" },
+  { name: "Scheherazade", className: "font-[Scheherazade]" },
+  { name: "Uthmanic", className: "font-[Uthmanic]" },
+  { name: "Traditional Arabic", className: "font-[Traditional-Arabic]" },
+  { name: "Noto Naskh", className: "font-[Noto-Naskh]" },
+];
+
 export function SurahReader({ surah }: SurahReaderProps) {
 
   const [displayMode, setDisplayMode] = useState<"arabic" | "translation" | "both">("both")
@@ -33,6 +41,7 @@ export function SurahReader({ surah }: SurahReaderProps) {
   const [currentVerse, setCurrentVerse] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
+  const [selectedFont, setSelectedFont] = useState(fontOptions[0].className);
 
   const handlePlayPause = () => {
     if (audioRef.current) {
@@ -69,7 +78,7 @@ export function SurahReader({ surah }: SurahReaderProps) {
 
   if (displayMode === "arabic" && viewMode === "compact") {
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 quran-background min-h-screen p-4">
         <div className="flex justify-between items-center mb-6">
           <Select
             value={displayMode}
@@ -84,6 +93,18 @@ export function SurahReader({ surah }: SurahReaderProps) {
               <SelectItem value="both">Arabe et traduction</SelectItem>
             </SelectContent>
           </Select>
+          <Select value={selectedFont} onValueChange={(value) => setSelectedFont(value)}>
+          <SelectTrigger className="min-w-[200px] w-full sm:w-[200px]">
+            <SelectValue placeholder="Police du Coran" />
+          </SelectTrigger>
+          <SelectContent>
+            {fontOptions.map((font, index) => (
+              <SelectItem key={index} value={font.className}>
+                {font.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
           {displayMode === "arabic" && (
             <Button variant="outline" onClick={() => setViewMode(viewMode === "compact" ? "detailed" : "compact")}>
@@ -97,12 +118,12 @@ export function SurahReader({ surah }: SurahReaderProps) {
         <Card>
           <CardContent className="p-6">
             <div className="text-center mb-8">
-              <p className="text-2xl font-arabic mb-6">{surah.bismillah}</p>
+            <p className={`text-3xl text-center leading-loose ${selectedFont} text-[#5B4636]`}>بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>  
             </div>
             <div className="text-right space-y-2">
               <p className="text-2xl font-arabic leading-loose">
                 {surah.verses.map((verse, index) => (
-                  <span key={verse.number}>
+                  <span className={`text-3xl text-right leading-loose ${selectedFont} text-[#5B4636]`} key={verse.number}>
                     {verse.arabic}
                     <span className="inline-block mr-2 ml-2 text-sm text-gray-400">﴾{convertToArabicNumerals(verse.number)}﴿</span>
                   </span>
@@ -116,8 +137,9 @@ export function SurahReader({ surah }: SurahReaderProps) {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row items-center sm:justify-between justify-center gap-4 text-center">
+    <div className="space-y-6 quran-background min-h-screen p-4">
+
+      <div className="flex flex-col sm:flex-row items-center sm:justify-between justify-center gap-4 text-center w-full">
         <Select value={displayMode} onValueChange={(value: "arabic" | "translation" | "both") => setDisplayMode(value)}>
           <SelectTrigger className="w-[200px]">
             <SelectValue placeholder="Mode d'affichage" />
@@ -126,6 +148,18 @@ export function SurahReader({ surah }: SurahReaderProps) {
             <SelectItem value="arabic">Arabe uniquement</SelectItem>
             <SelectItem value="translation">Traduction uniquement</SelectItem>
             <SelectItem value="both">Arabe et traduction</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select value={selectedFont} onValueChange={(value) => setSelectedFont(value)}>
+          <SelectTrigger className="min-w-[200px] w-full sm:w-[200px]">
+            <SelectValue placeholder="Police du Coran" />
+          </SelectTrigger>
+          <SelectContent>
+            {fontOptions.map((font, index) => (
+              <SelectItem key={index} value={font.className}>
+                {font.name}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
 
@@ -158,9 +192,9 @@ export function SurahReader({ surah }: SurahReaderProps) {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 quran-background p-4">
         <div className="text-center mb-8">
-          <p className="text-2xl font-arabic">{surah.bismillah}</p>
+          <p className={`text-3xl text-center leading-loose ${selectedFont} text-[#5B4636]`}>بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
         </div>
 
         {surah.verses.map((verse, index) => (
@@ -174,7 +208,7 @@ export function SurahReader({ surah }: SurahReaderProps) {
               </div>
 
               {(displayMode === "arabic" || displayMode === "both") && (
-                <p className="text-2xl text-right font-arabic leading-loose">{verse.arabic}</p>
+                <p className={`text-3xl text-right leading-loose ${selectedFont} text-[#5B4636]`}>{verse.arabic}</p>
               )}
 
               {(displayMode === "translation" || displayMode === "both") && (

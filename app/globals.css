@@ -50,8 +50,33 @@
 }
 
 @font-face {
-  font-family: "Amiri";
-  src: url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
+  font-family: 'Amiri';
+  src: url('/fonts/Amiri-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lateef';
+  src: url('/fonts/Lateef-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Miriam Libre';
+  src: url('/fonts/MiriamLibre-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  src: url('/fonts/NotoNaskhArabic-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Reem Kufi';
+  src: url('/fonts/ReemKufi-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('/fonts/ScheherazadeNew-Regular.ttf') format('truetype');
 }
 
 .font-arabic {
