@@ -66,9 +66,14 @@ export function SurahReader({ surah }: SurahReaderProps) {
 
   const playNextVerse = () => {
     if (currentVerse < surah.verses.length - 1) {
-      setCurrentVerse(currentVerse + 1)
+      setCurrentVerse((prev) => prev + 1);
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.play();
+        }
+      }, 500);
     }
-  }
+  };
 
   const playPreviousVerse = () => {
     if (currentVerse > 0) {
@@ -94,17 +99,17 @@ export function SurahReader({ surah }: SurahReaderProps) {
             </SelectContent>
           </Select>
           <Select value={selectedFont} onValueChange={(value) => setSelectedFont(value)}>
-          <SelectTrigger className="min-w-[200px] w-full sm:w-[200px]">
-            <SelectValue placeholder="Police du Coran" />
-          </SelectTrigger>
-          <SelectContent>
-            {fontOptions.map((font, index) => (
-              <SelectItem key={index} value={font.className}>
-                {font.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            <SelectTrigger className="min-w-[200px] w-full sm:w-[200px]">
+              <SelectValue placeholder="Police du Coran" />
+            </SelectTrigger>
+            <SelectContent>
+              {fontOptions.map((font, index) => (
+                <SelectItem key={index} value={font.className}>
+                  {font.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
           {displayMode === "arabic" && (
             <Button variant="outline" onClick={() => setViewMode(viewMode === "compact" ? "detailed" : "compact")}>
@@ -118,7 +123,7 @@ export function SurahReader({ surah }: SurahReaderProps) {
         <Card>
           <CardContent className="p-6">
             <div className="text-center mb-8">
-            <p className={`text-3xl text-center leading-loose ${selectedFont} text-[#5B4636]`}>بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>  
+              <p className={`text-3xl text-center leading-loose ${selectedFont} text-[#5B4636]`}>بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
             </div>
             <div className="text-right space-y-2">
               <p className="text-2xl font-arabic leading-loose">
@@ -218,7 +223,23 @@ export function SurahReader({ surah }: SurahReaderProps) {
         ))}
       </div>
 
-      <audio ref={audioRef} src={surah.verses[currentVerse]?.audio} onEnded={playNextVerse} className="hidden" />
+      <audio
+        ref={audioRef}
+        src={surah.verses[currentVerse]?.audio}
+        onEnded={() => {
+          if (currentVerse < surah.verses.length - 1) {
+            setCurrentVerse((prev) => prev + 1);
+            setTimeout(() => {
+              if (audioRef.current) {
+                audioRef.current.play();
+              }
+            }, 500);
+          } else {
+            setIsPlaying(false);
+          }
+        }}
+        className="hidden"
+      />
     </div>
   )
 }

@@ -16,7 +16,7 @@ export interface Surah {
 
 export async function getSurah(id: number): Promise<Surah | null> {
     try {
-        const response = await fetch(`http://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,fr.hamidullah,ar.alafasy`);
+        const response = await fetch(`http://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,fr.hamidullah,ar.abdurrahmaansudais`);
         if (!response.ok) {
             console.error("Erreur HTTP:", response.status);
             return null;
@@ -27,7 +27,7 @@ export async function getSurah(id: number): Promise<Surah | null> {
 
         const arabicEdition = data.data.find((edition: any) => edition.edition.identifier === "quran-uthmani");
         const translationEdition = data.data.find((edition: any) => edition.edition.identifier === "fr.hamidullah");
-        const audioEdition = data.data.find((edition: any) => edition.edition.identifier === "ar.alafasy");
+        const audioEdition = data.data.find((edition: any) => edition.edition.identifier === "ar.abdurrahmaansudais");
 
         return {
             number: arabicEdition.number,
