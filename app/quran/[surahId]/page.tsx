@@ -40,8 +40,8 @@ export default function SurahPage({ params }: { params: { surahId: string } }) {
           {surah.name} - {surah.versesCount} versets
         </p>
       </div>
-
       <SurahReader surah={surah} />
     </div>
   );
 }
+

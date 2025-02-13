@@ -11,12 +11,12 @@ export interface Surah {
     arabicName: string;
     versesCount: number;
     bismillah: string;
-    verses: Verse[]; 
+    verses: Verse[];
 }
 
 export async function getSurah(id: number): Promise<Surah | null> {
     try {
-        const response = await fetch(`https://www.alkhourane.org/api/versetBySourate/list/${id}`);
+        const response = await fetch(`http://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,fr.hamidullah,ar.alafasy`);
         if (!response.ok) {
             console.error("Erreur HTTP:", response.status);
             return null;
@@ -25,17 +25,21 @@ export async function getSurah(id: number): Promise<Surah | null> {
         const data = await response.json();
         console.log("✅ Données API récupérées :", data);
 
+        const arabicEdition = data.data.find((edition: any) => edition.edition.identifier === "quran-uthmani");
+        const translationEdition = data.data.find((edition: any) => edition.edition.identifier === "fr.hamidullah");
+        const audioEdition = data.data.find((edition: any) => edition.edition.identifier === "ar.alafasy");
+
         return {
-            number: data.numero, // "numero" au lieu de "id"
-            name: data.transcription, // Nom en transcription latine
-            arabicName: data.arabic_title, // Titre en arabe
-            versesCount: data.count_verset, // Nombre total de versets
-            bismillah: data.versets[0]?.arabic_title || "", // Premier verset est souvent la Basmala
-            verses: data.versets.map((verse: any) => ({
-                number: verse.numero, // Numéro du verset
-                arabic: verse.arabic_title, // Texte arabe
-                translation: verse.translations.find((t: any) => t.lang_code === "fr")?.traduction || "Traduction non disponible", // Traduction FR
-                audio: verse.translations.find((t: any) => t.audio_url)?.audio_url || "", // URL de l'audio s'il existe
+            number: arabicEdition.number,
+            name: arabicEdition.englishName,
+            arabicName: arabicEdition.name,
+            versesCount: arabicEdition.numberOfAyahs,
+            bismillah: arabicEdition.ayahs[0]?.text || "",
+            verses: arabicEdition.ayahs.map((verse: any, index: number) => ({
+                number: verse.numberInSurah,
+                arabic: verse.text,
+                translation: translationEdition.ayahs[index]?.text || "Translation not available",
+                audio: audioEdition.ayahs[index]?.audio || "",
             })),
         };
     } catch (error) {
