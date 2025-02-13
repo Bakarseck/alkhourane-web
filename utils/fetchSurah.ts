@@ -16,7 +16,7 @@ export interface Surah {
 
 export async function getSurah(id: number): Promise<Surah | null> {
     try {
-        const response = await fetch(`http://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,fr.hamidullah,ar.abdurrahmaansudais`);
+        const response = await fetch(`https://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,fr.hamidullah,ar.abdurrahmaansudais`);
         if (!response.ok) {
             console.error("Erreur HTTP:", response.status);
             return null;
