@@ -79,7 +79,7 @@ export function SurahReader({ surah }: SurahReaderProps) {
   if (displayMode === "arabic" && viewMode === "compact") {
     return (
       <div className="space-y-6 quran-background min-h-screen p-4">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row items-center sm:justify-between justify-center gap-4 text-center w-full">
           <Select
             value={displayMode}
             onValueChange={(value: "arabic" | "translation" | "both") => setDisplayMode(value)}
@@ -138,7 +138,6 @@ export function SurahReader({ surah }: SurahReaderProps) {
 
   return (
     <div className="space-y-6 quran-background min-h-screen p-4">
-
       <div className="flex flex-col sm:flex-row items-center sm:justify-between justify-center gap-4 text-center w-full">
         <Select value={displayMode} onValueChange={(value: "arabic" | "translation" | "both") => setDisplayMode(value)}>
           <SelectTrigger className="w-[200px]">
