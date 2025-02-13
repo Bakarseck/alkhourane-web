@@ -85,8 +85,11 @@ export function SurahReader({ surah }: SurahReaderProps) {
             </SelectContent>
           </Select>
 
-          <Button variant="outline" onClick={() => setViewMode(viewMode === "compact" ? "detailed" : "compact")}>
-            {viewMode === "compact" ? <List className="h-4 w-4 mr-2" /> : <BookOpen className="h-4 w-4 mr-2" />}
+          <Button
+            variant="outline"
+            onClick={() => setViewMode(prevMode => prevMode === "compact" ? "detailed" : "compact")}
+          >
+            {viewMode === "compact" ? <BookOpen className="h-4 w-4 mr-2" /> : <List className="h-4 w-4 mr-2" />}
             {viewMode === "compact" ? "Vue détaillée" : "Vue compacte"}
           </Button>
         </div>
@@ -114,7 +117,7 @@ export function SurahReader({ surah }: SurahReaderProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
         <Select value={displayMode} onValueChange={(value: "arabic" | "translation" | "both") => setDisplayMode(value)}>
           <SelectTrigger className="w-[200px]">
             <SelectValue placeholder="Mode d'affichage" />
@@ -132,7 +135,7 @@ export function SurahReader({ surah }: SurahReaderProps) {
             {viewMode === "compact" ? "Vue détaillée" : "Vue compacte"}
           </Button>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4">
             <Button variant="outline" size="icon" onClick={playPreviousVerse} disabled={currentVerse === 0}>
               <SkipBack className="h-4 w-4" />
             </Button>
