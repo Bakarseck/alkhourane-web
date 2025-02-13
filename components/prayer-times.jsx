@@ -70,7 +70,7 @@ export function PrayerTimes({ data }) {
     updateTime();
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
-  }, [prayerTimes]);
+  }, []);
 
   return (
     <div className="space-y-6">

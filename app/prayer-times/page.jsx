@@ -3,24 +3,16 @@ import { useEffect, useState } from "react";
 import { PrayerTimes } from "@/components/prayer-times";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
-import { Howl } from "howler";
+import { useRef } from "react";
+import { AdhanPlayer } from "@/components/adhan-player";
 
-const adhans = [
-  { name: "Makkah Adhan", url: "/adhan/a1.mp3" },
-  { name: "Madinah Adhan", url: "/adhan/a2.mp3" },
-  { name: "Egypt Adhan", url: "/adhan/a3.mp3" },
-  { name: "Egypt Adhan", url: "/adhan/a4.mp3" },
-];
 
 export default function PrayerTimesPage() {
   const [prayerTimes, setPrayerTimes] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [location, setLocation] = useState(null);
-  const [selectedAdhan, setSelectedAdhan] = useState(adhans[0]);
-  const [adhanPlayer, setAdhanPlayer] = useState(null);
-  const [hasInteracted, setHasInteracted] = useState(false);
-
+  const adhanPlayerRef = useRef(null);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -85,36 +77,20 @@ export default function PrayerTimesPage() {
     if (prayerTimes) {
       const checkPrayerTimes = setInterval(() => {
         const now = new Date();
-        const currentTime = `${now.getHours()}:${now.getMinutes()}`;
+        const currentTime = now.toTimeString().slice(0, 5); // HH:MM format
+  
         if (Object.values(prayerTimes).includes(currentTime)) {
-          playAdhan();
+          console.log("🔊 C'est l'heure de la prière, lancement de l'Adhan...");
+          if (adhanPlayerRef.current) {
+            adhanPlayerRef.current.playAdhan();
+          }
         }
       }, 60000);
+  
       return () => clearInterval(checkPrayerTimes);
     }
   }, [prayerTimes]);
-
-  const playAdhan = () => {
-    setHasInteracted(true); // Indique que l'utilisateur a cliqué une première fois
-    if (adhanPlayer) adhanPlayer.stop();
-    const player = new Howl({
-      src: [selectedAdhan.url],
-      volume: 1.0,
-      loop: false,
-      html5: true,
-    });
-    player.play();
-    setAdhanPlayer(player);
-  };
-
-
-  const pauseAdhan = () => {
-    if (adhanPlayer) adhanPlayer.pause();
-  };
-
-  const stopAdhan = () => {
-    if (adhanPlayer) adhanPlayer.stop();
-  };
+  
 
   return (
     <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -134,43 +110,7 @@ export default function PrayerTimesPage() {
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Horaires des Prières</h1>
         <p className="text-xl text-gray-600">Les horaires de prière pour aujourd'hui</p>
       </div>
-      <div className="text-center mb-4">
-        <label className="block mb-2 font-medium">Choisir l'Adhan :</label>
-        <select onChange={(e) => setSelectedAdhan(adhans[e.target.selectedIndex])} className="px-4 py-2 border rounded-md">
-          {adhans.map((adhan, index) => (
-            <option key={index} value={adhan.url}>{adhan.name}</option>
-          ))}
-        </select>
-        {!hasInteracted && (
-          <div className="text-center mt-4">
-            <button onClick={playAdhan} className="px-4 py-2 bg-blue-500 text-white rounded-md">
-              🔊 Écouter l'Adhan
-            </button>
-          </div>
-        )}
-        {adhanPlayer && (
-          <div className="mt-4 flex flex-col items-center">
-            <div className="flex space-x-4 mt-2">
-              {!adhanPlayer.playing() && (
-                <button onClick={() => adhanPlayer.play()} className="px-4 py-2 bg-green-500 text-white rounded-md">
-                  Jouer
-                </button>
-              )}
-              {adhanPlayer.playing() && (
-                <>
-                  <button onClick={() => adhanPlayer.pause()} className="px-4 py-2 bg-yellow-500 text-white rounded-md">
-                    Pause
-                  </button>
-                  <button onClick={() => adhanPlayer.stop()} className="px-4 py-2 bg-red-500 text-white rounded-md">
-                    Arrêter
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        )}
-
-      </div>
+      <AdhanPlayer ref={adhanPlayerRef}/>
       {loading ? (
         <Card>
           <CardHeader>
