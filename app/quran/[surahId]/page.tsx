@@ -32,7 +32,7 @@ export default function SurahPage({ params }: { params: { surahId: string } }) {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <Image src="/12.jpg" alt="Kaaba" fill className="object-cover opacity-10" priority />
+        <Image src="/bg4.png" alt="Kaaba" fill className="object-cover opacity-50" priority />
       </div>
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-2">{surah.arabicName}</h1>

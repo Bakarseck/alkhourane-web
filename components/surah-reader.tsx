@@ -130,7 +130,7 @@ export function SurahReader({ surah }: SurahReaderProps) {
                 {surah.verses.map((verse, index) => (
                   <span className={`text-3xl text-right leading-loose ${selectedFont} text-[#5B4636]`} key={verse.number}>
                     {verse.arabic}
-                    <span className="inline-block mr-2 ml-2 text-sm text-gray-400">﴾{convertToArabicNumerals(verse.number)}﴿</span>
+                    <span className="inline-block mr-2 ml-2 text-sm text-gray-800">﴾{convertToArabicNumerals(verse.number)}﴿</span>
                   </span>
                 ))}
               </p>
