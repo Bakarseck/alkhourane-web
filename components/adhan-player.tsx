@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
-import { Slider } from "@/components/ui/slider"
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select"
+import { Button } from "../components/ui/button"
+import { Slider } from "../components/ui/slider"
 import { Volume2, VolumeX, Play, Pause, SkipBack, Music2 } from "lucide-react"
 import { Howl } from "howler";
 
