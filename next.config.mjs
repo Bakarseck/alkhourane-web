@@ -6,6 +6,10 @@ const nextConfig = {
     eslint: {
         ignoreDuringBuilds: true,
     },
+    webpack: (config) => {
+        config.optimization.splitChunks = false;
+        return config;
+    },
 };
 
 export default nextConfig;
