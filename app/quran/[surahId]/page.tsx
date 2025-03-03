@@ -1,6 +1,6 @@
 "use client";
 
-import { SurahReader } from "@/components/surah-reader";
+import { SurahReader } from "../../../components/surah-reader";
 import { getSurah, Surah } from "@/utils/fetchSurah";
 import { useEffect, useState } from "react";
 import Image from "next/image";

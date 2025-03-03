@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { PrayerTimes } from "@/components/prayer-times";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PrayerTimes } from "../../components/prayer-times";
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
 import Image from "next/image";
 import { useRef } from "react";
-import { AdhanPlayer } from "@/components/adhan-player";
+import { AdhanPlayer } from "../../components/adhan-player";
 
 
 export default function PrayerTimesPage() {
