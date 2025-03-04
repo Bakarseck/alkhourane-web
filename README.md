@@ -72,6 +72,8 @@ Want to contribute to the project? Follow these steps:
 4. **Push your changes** (`git push origin feature/my-feature`).
 5. **Create a pull request**, and we’ll review it together!
 
+6. 
+
 ---
 
 ## 📜 License
